@@ -1,0 +1,25 @@
+`timescale 1ns/1ps
+module serializer_tb #(parameter width_tb=8);
+reg rst_tb;
+reg clk_tb;
+reg [width_tb-1:0] p_input_tb;
+reg load_tb;
+reg serial_en_tb;
+wire serial_out_tb;
+wire serial_done_tb;
+
+serializer #(.width(width_tb))DUT (
+.clk(clk_tb),
+.rst(rst_tb),
+.p_input(p_input_tb),
+.load(load_tb),
+.serial_en(serial_en_tb),
+.serial_out(serial_out_tb),
+.serial_done(serial_done_tb)
+);
+initial 
+begin
+clk_tb = 0; 
+end 
+always #5 clk_tb = ~clk_tb;
+endmodule

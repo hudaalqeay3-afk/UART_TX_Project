@@ -119,107 +119,99 @@ $display("DATA_BIT_7 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
 if (TX_OUTPUT_tb === 1)
 $display("STOP_BIT PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("STOP_BIT FALL : TX = %b", TX_OUTPUT_tb);
+$display("STOP_BIT FAIL : TX = %b", TX_OUTPUT_tb);
 
 #20;
 
-@(posedge CLK_tb);
 P_INPUT_tb = 8'b00111001;
 P_EN_tb    = 1;
 P_BIT_tb   = 0;
 V_INPUT_tb = 1;
 
-@(posedge CLK_tb);
+#10;
+
 V_INPUT_tb = 0;
 
-#1;
+#10;
 
 if (TX_OUTPUT_tb === 0)
 $display("START_BIT PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("START_BIT FALL : TX = %b", TX_OUTPUT_tb);
+$display("START_BIT FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb); 
-#1;
+#10;
+
 if (TX_OUTPUT_tb === P_INPUT_tb[0])
 $display("DATA_BIT_0 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_0 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_0 WITH PARITY  STATE FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
+
 if (TX_OUTPUT_tb === P_INPUT_tb[1])
 $display("DATA_BIT_1 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_1 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_1 WITH PARITY  STATE FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === P_INPUT_tb[2])
 $display("DATA_BIT_2 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_2 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_2 WITH PARITY  STATE FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === P_INPUT_tb[3])
 $display("DATA_BIT_3 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_3 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_3 WITH PARITY  STATE FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === P_INPUT_tb[4])
 $display("DATA_BIT_4 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_4 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_4 WITH PARITY  STATE FAIL FALL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === P_INPUT_tb[5])
 $display("DATA_BIT_5 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_5 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_5 WITH PARITY  STATE FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === P_INPUT_tb[6])
 $display("DATA_BIT_6 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_6 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_6 WITH PARITY  STATE FAIL FALL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === P_INPUT_tb[7])
 $display("DATA_BIT_7 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("DATA_BIT_7 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+$display("DATA_BIT_7 WITH PARITY  STATE FAIL : TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === 0)
 $display(" PARITY Bit PASS TX = %b", TX_OUTPUT_tb);
 else
-$display(" PARITY Bit FALL TX = %b", TX_OUTPUT_tb);
+$display(" PARITY Bit FAIL TX = %b", TX_OUTPUT_tb);
 
-@(posedge CLK_tb);
 #10;
 
 if (TX_OUTPUT_tb === 1)
 $display("STOP_BIT PASS : TX = %b", TX_OUTPUT_tb);
 else
-$display("STOP_BIT FALL : TX = %b", TX_OUTPUT_tb);
+$display("STOP_BIT FAIL : TX = %b", TX_OUTPUT_tb);
 
 #20;
 
-$display("SIMULATION FINISHED");
+$display("FINISHED");
 
 $finish;
 
