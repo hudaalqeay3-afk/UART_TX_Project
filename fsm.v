@@ -61,7 +61,8 @@ else
 next_state = stop;
 end 
 else
-next_state = ser_data;                 end
+next_state = ser_data;                
+end
 
 parity:
 begin 
