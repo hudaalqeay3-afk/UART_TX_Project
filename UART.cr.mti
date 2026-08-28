@@ -1,0 +1,36 @@
+C:/FPGA/parity_calc.v {1 {vlog -work work -stats=none {C:\FPGA\parity_calc.v}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module parity_calc
+
+Top level modules:
+	parity_calc
+
+} {} {}} C:/FPGA/URT.v {1 {vlog -work work -stats=none C:/FPGA/URT.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module UART_TX
+
+Top level modules:
+	UART_TX
+
+} {} {}} C:/FPGA/serializer.v {1 {vlog -work work -stats=none C:/FPGA/serializer.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module serializer
+
+Top level modules:
+	serializer
+
+} {} {}} C:/FPGA/mux.v {1 {vlog -work work -stats=none C:/FPGA/mux.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module mux
+
+Top level modules:
+	mux
+
+} {} {}} C:/FPGA/fsm.v {1 {vlog -work work -stats=none C:/FPGA/fsm.v
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module fsm
+
+Top level modules:
+	fsm
+
+} {} {}}

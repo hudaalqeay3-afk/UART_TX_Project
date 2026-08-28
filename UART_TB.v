@@ -1,0 +1,220 @@
+`timescale 1ns/1ps
+module UART_TX_tb #(parameter width_tx_tb=8 ); 
+reg [width_tx_tb-1:0] P_INPUT_tb;
+reg V_INPUT_tb;
+reg CLK_tb;
+reg RST_tb;
+reg P_EN_tb;
+reg P_BIT_tb;
+wire TX_OUTPUT_tb;
+wire BUSY_tb;
+
+UART_TX #(.width_tx(width_tx_tb)) DUT (
+.P_INPUT(P_INPUT_tb),
+.V_INPUT(V_INPUT_tb),
+.CLK(CLK_tb),
+.RST(RST_tb),
+.P_EN(P_EN_tb),
+.P_BIT(P_BIT_tb),
+.TX_OUTPUT(TX_OUTPUT_tb),
+.BUSY(BUSY_tb) 
+);
+
+always #5 CLK_tb = ~CLK_tb;
+
+initial
+begin
+CLK_tb= 0;
+RST_tb= 0;
+V_INPUT_tb = 0 ;
+P_INPUT_tb = 0;
+P_EN_tb= 0;
+P_BIT_tb= 0 ;
+
+#20;
+
+if (TX_OUTPUT_tb === 1 && BUSY_tb === 0)
+$display("IDLE STATE PASS : TX = %b", TX_OUTPUT_tb);
+else 
+$display("IDLE STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+RST_tb= 1;
+
+#10;
+
+P_INPUT_tb= 8'b00111001; 
+P_EN_tb= 0;
+P_BIT_tb= 0; 
+V_INPUT_tb= 1;
+
+#10;
+
+V_INPUT_tb= 0;
+  
+#10;
+
+if (TX_OUTPUT_tb === 0) 
+$display("START_BIT PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("START_BIT FALL : TX = %b", TX_OUTPUT_tb);
+
+#10; 
+
+if (TX_OUTPUT_tb === P_INPUT_tb[0])
+$display("DATA_BIT_0 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb); 
+else 
+$display("DATA_BIT_0 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[1])
+$display("DATA_BIT_1 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_1 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[2])
+$display("DATA_BIT_2 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_2 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[3])
+$display("DATA_BIT_3 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_3 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[4])
+$display("DATA_BIT_4 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_4 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[5])
+$display("DATA_BIT_5 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_5 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[6])
+$display("DATA_BIT_6 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_6 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[7])
+$display("DATA_BIT_7 WITH NO PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_7 WITH NO PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === 1)
+$display("STOP_BIT PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("STOP_BIT FALL : TX = %b", TX_OUTPUT_tb);
+
+#20;
+
+P_INPUT_tb = 8'b00111001;
+P_EN_tb    = 1;
+P_BIT_tb   = 0;
+V_INPUT_tb = 1;
+
+#10;
+
+V_INPUT_tb = 0;
+
+#10;
+
+if (TX_OUTPUT_tb === 0)
+$display("START_BIT PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("START_BIT FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[0])
+$display("DATA_BIT_0 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_0 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[1])
+$display("DATA_BIT_1 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_1 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[2])
+$display("DATA_BIT_2 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_2 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[3])
+$display("DATA_BIT_3 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_3 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[4])
+$display("DATA_BIT_4 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_4 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[5])
+$display("DATA_BIT_5 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_5 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[6])
+$display("DATA_BIT_6 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_6 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === P_INPUT_tb[7])
+$display("DATA_BIT_7 WITH PARITY  STATE PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("DATA_BIT_7 WITH PARITY  STATE FALL : TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === 0)
+$display(" PARITY Bit PASS TX = %b", TX_OUTPUT_tb);
+else
+$display(" PARITY Bit FALL TX = %b", TX_OUTPUT_tb);
+
+#10;
+
+if (TX_OUTPUT_tb === 1)
+$display("STOP_BIT PASS : TX = %b", TX_OUTPUT_tb);
+else
+$display("STOP_BIT FALL : TX = %b", TX_OUTPUT_tb);
+
+#20;
+
+$display("SIMULATION FINISHED");
+
+$finish;
+
+end
+endmodule
+

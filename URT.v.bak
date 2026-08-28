@@ -1,0 +1,53 @@
+module UART_TX #(parameter width_tx=8 ) 
+(
+input wire [width_tx-1:0] P_INPUT,
+input wire V_INPUT,
+input wire CLK,
+input wire RST,
+input wire P_EN,
+input wire P_BIT,
+output wire TX_OUTPUT,
+output wire BUSY
+);
+wire load;
+wire serial_en;
+wire [1:0] mux_sel;
+wire serial_out;
+wire serial_done;
+wire parity_out;
+
+serializer #(.width(width_tx)) serializer_tx (
+.clk(CLK),
+.rst(RST),
+.p_input(P_INPUT),
+.load(load),
+.serial_en(serial_en),
+.serial_out(serial_out),
+.serial_done(serial_done)
+);
+
+parity_calc #(.width(width_tx)) parity_tx (
+.p_input(P_INPUT),
+.parity_bit(P_BIT),
+.parity_out(parity_out)
+);
+fsm  fsm_tx (
+.rst(RST),
+.clk(CLK),
+.serial_done(serial_done),
+.valid_input( V_INPUT),
+.parity_en(P_EN),
+.load(load),
+.busy(BUSY),
+.mux_sel(mux_sel),
+.serial_en(serial_en)
+);
+
+mux mux_tx (
+.start_bit(1'b0),
+.stop_bit(1'b1),
+.serial_out(serial_out),
+.parity_out(parity_out),
+.mux_sel(mux_sel),
+.TX_out(TX_OUTPUT)
+);
