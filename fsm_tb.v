@@ -1,0 +1,114 @@
+`timescale 1ns/1ps
+module fsm_tb;
+reg rst_tb;
+reg clk_tb;
+reg serial_done_tb;
+reg valid_input_tb;
+reg parity_en_tb;
+wire load_tb;
+wire busy_tb;
+wire [1:0] mux_sel_tb;
+wire serial_en_tb;
+
+fsm DUT (
+.rst(rst_tb),
+.clk(clk_tb),
+.serial_done(serial_done_tb),
+.valid_input(valid_input_tb),
+.parity_en(parity_en_tb),
+.load(load_tb),
+.busy(busy_tb),
+.mux_sel(mux_sel_tb),
+.serial_en(serial_en_tb)
+);
+
+always #5 clk_tb = ~clk_tb;
+
+initial begin
+clk_tb = 0;
+rst_tb = 0;
+serial_done_tb = 0;
+valid_input_tb = 0;
+parity_en_tb = 0;
+
+#20;
+rst_tb = 1;
+#1;
+if (busy_tb === 0 && load_tb === 0 && serial_en_tb === 0 && mux_sel_tb === 2'b11)
+$display("IDLE STATE PASS");
+else
+$display("IDLE STATE FAIL");
+
+$display(" WITH PARITY ");
+@(posedge clk_tb);
+valid_input_tb = 1;
+parity_en_tb   = 1;
+
+@(posedge clk_tb); 
+#1;
+valid_input_tb = 0;
+if (busy_tb === 1 && load_tb === 1 && mux_sel_tb === 2'b00)
+$display("START STATE PASS");
+else
+$display("START STATE FAIL");
+
+@(posedge clk_tb); 
+#1;
+if (busy_tb === 1 && serial_en_tb === 1 && mux_sel_tb === 2'b01)
+$display("SER_DATA STATE PASS");
+else
+$display("SER_DATA STATE FAIL");
+
+repeat(7) @(posedge clk_tb);
+serial_done_tb = 1;
+
+
+@(posedge clk_tb); 
+#1;
+serial_done_tb = 0;
+if (busy_tb === 1 && mux_sel_tb === 2'b10)
+$display("PARITY STATE PASS");
+else
+$display("PARITY STATE FAIL");
+
+@(posedge clk_tb); 
+#1;
+if (busy_tb === 1 && mux_sel_tb === 2'b11)
+$display("STOP STATE PASS");
+else
+$display("STOP STATE FAIL");
+
+@(posedge clk_tb); 
+#1;
+if (busy_tb === 0)
+$display("RETURN TO IDLE PASS");
+
+$display("WITHOUT PARITY");
+@(posedge clk_tb);
+valid_input_tb = 1;
+parity_en_tb   = 0;
+
+@(posedge clk_tb); 
+#1;
+valid_input_tb = 0;
+    
+@(posedge clk_tb); 
+#1; 
+repeat(7) @(posedge clk_tb);
+serial_done_tb = 1;
+
+@(posedge clk_tb); 
+#1;
+serial_done_tb = 0;
+if (busy_tb === 1 && mux_sel_tb === 2'b11)
+$display("SKIP PARITY ");
+else
+$display("SKIP PARITY FAIL");
+
+#20;
+
+$display(" FINISHED ");
+
+$finish;
+end
+endmodule
